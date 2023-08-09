@@ -9,8 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -28,7 +30,12 @@ public class Product implements Serializable {
 	//usar o set para garantir que o mesmo produto não pode ter uma memsa categoria mais de uma vez
 	//tem que instanciar new HashSet, para garantir que a minha coleção não comece como nula, ela tem que começar vazia proem instanciada
 	//Set é uma interface ele não pode se instanciado, eu tenho que eusar uma classe corrrespondente a essa interface (HashSet)
-	@Transient
+	//fazer  um mapeamento para transformar essas coleçõe que atenda as duas classes na tabela de associanção que tem lá no medlo relacional
+	
+	@ManyToMany
+	@JoinTable(name = "tb_product_category",
+	joinColumns = @JoinColumn(name = "product_id"),
+	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {
