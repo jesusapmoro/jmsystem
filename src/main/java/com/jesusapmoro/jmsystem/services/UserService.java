@@ -13,6 +13,8 @@ import com.jesusapmoro.jmsystem.repositories.UserRepository;
 import com.jesusapmoro.jmsystem.services.exceptions.DatabaseException;
 import com.jesusapmoro.jmsystem.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 //registrar com dependência
 @Service
 public class UserService {
@@ -46,9 +48,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = repository.getReferenceById(id);//deixa objeto monitorado pelo JPA, para eu trabalhar com  e em seguida eu posso efefuar uma operação c/ banco de dados
-		updateData(entity, obj);
-		return repository.save(entity);		
+		try {
+			User entity = repository.getReferenceById(id);//deixa objeto monitorado pelo JPA, para eu trabalhar com  e em seguida eu posso efefuar uma operação c/ banco de dados
+			updateData(entity, obj);
+			return repository.save(entity);		
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	//updateData: vai atualizar os dados com base que chegou aqui no obj
