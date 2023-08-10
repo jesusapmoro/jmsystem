@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.jesusapmoro.jmsystem.entities.Category;
 import com.jesusapmoro.jmsystem.entities.Order;
 import com.jesusapmoro.jmsystem.entities.OrderItem;
+import com.jesusapmoro.jmsystem.entities.Payment;
 import com.jesusapmoro.jmsystem.entities.Product;
 import com.jesusapmoro.jmsystem.entities.User;
 import com.jesusapmoro.jmsystem.entities.enums.OrderStatus;
@@ -89,6 +90,13 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		//Associação de mão dupla em memória
+		//chamar o pedido e passando o payment
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 	}
 	
 	
