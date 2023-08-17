@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jesusapmoro.jmsystem.dto.OrderDTO;
 import com.jesusapmoro.jmsystem.entities.Order;
 import com.jesusapmoro.jmsystem.repositories.OrderRepository;
 
@@ -28,20 +29,19 @@ public class OrderService {
 		return obj.get();
 	}
 	
-	
-	
 	public Order insert(Order obj) {
 		return repository.save(obj);
+	}
+	
+	/*
+	public OrderDTO insert(Order order) {
+		var orderSaved = repository.save(order);
+		return new OrderDTO(orderSaved);
 		
-		
-		/*
-		OrderItem orderItem = new OrderItem();
-		orderItem.setOrder(obj);
-		orderItem.setProduct();
-		orderItem.setPrice(product.getPrice());
-		orderItem.setQuantity(null);
-		OrderItem newOrderItem = orderRepository.save(orderItem);
-		*/
+	}
+	*/
+	public Order fromDTO(OrderDTO objDto) {
+		return new Order();
 	}
 	
 }
