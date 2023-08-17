@@ -38,10 +38,6 @@ public class UserService {
 		return repository.save(obj);
 	}
 	
-	public User fromDTO(UserDTO objDto) {
-		return new User(objDto.getId(), objDto.getName(),objDto.getEmail(), objDto.getPassword(), objDto.getPhone());
-	}
-	
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
@@ -67,5 +63,9 @@ public class UserService {
 		entity.setName(obj.getName());
 		entity.setEmail(obj.getEmail());
 		entity.setPhone(obj.getPhone());
+	}
+	
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(),objDto.getEmail(), objDto.getPassword(), objDto.getPhone());
 	}
 }
