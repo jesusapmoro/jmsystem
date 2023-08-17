@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.jesusapmoro.jmsystem.dto.UserDTO;
 import com.jesusapmoro.jmsystem.entities.User;
 import com.jesusapmoro.jmsystem.repositories.UserRepository;
 import com.jesusapmoro.jmsystem.services.exceptions.DatabaseException;
@@ -35,6 +36,10 @@ public class UserService {
 	
 	public User insert(User obj) {
 		return repository.save(obj);
+	}
+	
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(),objDto.getEmail(), objDto.getPassword(), objDto.getPhone());
 	}
 	
 	public void delete(Long id) {
